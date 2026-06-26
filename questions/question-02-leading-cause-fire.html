@@ -6,7 +6,7 @@
   <title>Question 2 - Leading Cause of Fire</title>
   <link rel="stylesheet" href="../assets/trivs.css">
 </head>
-<body data-power-seconds="30" data-points="100 points">
+<body class="text-only" data-power-seconds="0" data-points="100 points">
   <header class="topbar">
     <div class="topbar-left">
       <a class="home-link" href="../index.html">Back to Index</a>
@@ -23,15 +23,59 @@
 
   <main class="question-shell">
     <section class="question-card">
-      <h1 class="prompt">This deceptively simple shop waste can self-heat via oxidation and ignite without a spark.</h1>
-      <p class="subprompt">Name the leading cause of woodshop fires tied to finishing oils.</p>
-
-      <div class="answer-box hidden" data-delayed-text data-delay-ms="10000">
-        Non-power clue: in safety training this is often phrased as "never leave these in a pile" after using linseed oil, Danish oil, or similar products. What is it?
-      </div>
+      <p id="questionText" class="subprompt"></p>
     </section>
   </main>
 
   <script src="../assets/trivs.js"></script>
+  <script>
+    const questionTextEl = document.getElementById("questionText");
+    const powerDot = document.querySelector("[data-power-dot]");
+    const powerLabel = document.querySelector("[data-power-text]");
+
+    const textToReveal = `A specialized "tack" variety of these objects is usually made of cheesecloth impregnated with beeswax, used to meticulously pick up fine dust before applying a final finish. A heavy-duty, disposable "shop" variant of these items is manufactured by Scott and famously sold in a red cardboard box. The improper storage of these objects is a massive shop liability; when soaked in drying finishes like boiled linseed oil or Danish oil, an exothermic oxidation reaction can cause them to spontaneously combust. (*) Because of this phenomenon, they are famously the leading cause of catastrophic woodshop fires. For 100 points, name these torn pieces of old cloth or ratty, discarded t-shirts used to wipe off excess wood stain.`;
+
+    let cursor = 0;
+    let powerExpired = false;
+
+    function setPowerActive() {
+      if (!powerDot || !powerLabel) return;
+      powerDot.classList.remove("expired");
+      powerDot.classList.add("active");
+      powerLabel.textContent = "Power active";
+    }
+
+    function setPowerExpired() {
+      if (!powerDot || !powerLabel || powerExpired) return;
+      powerDot.classList.remove("active");
+      powerDot.classList.add("expired");
+      powerLabel.textContent = "Power expired";
+      powerExpired = true;
+    }
+
+    function nextDelay(character) {
+      if (character === "." || character === "!" || character === "?") return 360;
+      if (character === "," || character === ";" || character === ":") return 210;
+      if (character === " ") return 64;
+      return 52;
+    }
+
+    function revealNextCharacter() {
+      if (cursor >= textToReveal.length) return;
+
+      const character = textToReveal[cursor];
+      questionTextEl.textContent += character;
+
+      if (character === "*") {
+        setPowerExpired();
+      }
+
+      cursor += 1;
+      setTimeout(revealNextCharacter, nextDelay(character));
+    }
+
+    setPowerActive();
+    revealNextCharacter();
+  </script>
 </body>
 </html>
