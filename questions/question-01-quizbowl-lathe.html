@@ -24,7 +24,7 @@
   <main class="question-shell">
     <section class="question-card">
       <p id="questionText" class="subprompt"></p>
-      <div class="reveal-panel">
+      <div id="revealPanel" class="reveal-panel hidden">
         <button class="action-btn primary" data-reveal-btn data-answer-target="#answer">Reveal Answer</button>
       </div>
       <div id="answer" class="reveal-overlay hidden">Answer: A wood lathe (accept: turning on a lathe)</div>
@@ -34,6 +34,7 @@
   <script src="../assets/trivs.js"></script>
   <script>
     const questionTextEl = document.getElementById("questionText");
+    const revealPanel = document.getElementById("revealPanel");
     const powerDot = document.querySelector("[data-power-dot]");
     const powerLabel = document.querySelector("[data-power-text]");
 
@@ -65,7 +66,10 @@
     }
 
     function revealNextCharacter() {
-      if (cursor >= textToReveal.length) return;
+      if (cursor >= textToReveal.length) {
+        if (revealPanel) revealPanel.classList.remove("hidden");
+        return;
+      }
       const character = textToReveal[cursor];
       questionTextEl.textContent += character;
       if (character === "*") setPowerExpired();
