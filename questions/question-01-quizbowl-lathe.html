@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question 1 - Quizbowl</title>
+  <link rel="stylesheet" href="../assets/trivs.css">
+</head>
+<body class="text-only" data-power-seconds="0" data-points="100 points">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="home-link" href="../index.html">Back to Index</a>
+      <span class="question-title">Question 1 - Quizbowl</span>
+    </div>
+    <div class="topbar-right">
+      <div class="power-wrap">
+        <span class="power-dot" data-power-dot aria-hidden="true"></span>
+        <span class="power-label" data-power-text>Power active</span>
+      </div>
+      <span class="points-pill" data-points-text>100 points</span>
+    </div>
+  </header>
+
+  <main class="question-shell">
+    <section class="question-card">
+      <p id="questionText" class="subprompt"></p>
+      <div class="reveal-panel">
+        <button class="action-btn primary" data-reveal-btn data-answer-target="#answer">Reveal Answer</button>
+      </div>
+      <div id="answer" class="reveal-overlay hidden">Answer: A wood lathe (accept: turning on a lathe)</div>
+    </section>
+  </main>
+
+  <script src="../assets/trivs.js"></script>
+  <script>
+    const questionTextEl = document.getElementById("questionText");
+    const powerDot = document.querySelector("[data-power-dot]");
+    const powerLabel = document.querySelector("[data-power-text]");
+
+    const textToReveal = `One essential accessory for this machine is colloquially known as a "banjo," which acts as a sliding, locking base for the tool rest. Cutting implements exclusively designed for this machine include the skew chisel, the parting tool, and the bowl gouge. It is entirely unique among major stationary shop machines because the cutting edge is held freely in the operator's hands rather than being mechanically bolted to a motor or arbor. Working on this machine involves the operator aggressively thrusting a long, hardened steel rod into a piece of wood (*) spinning at high RPMs to achieve rotational symmetry. For 100 points, name this power tool used by woodturners to manufacture cylindrical objects like baseball bats, pepper mills, and table legs.`;
+
+    let cursor = 0;
+    let powerExpired = false;
+
+    function setPowerActive() {
+      if (!powerDot || !powerLabel) return;
+      powerDot.classList.remove("expired");
+      powerDot.classList.add("active");
+      powerLabel.textContent = "Power active";
+    }
+
+    function setPowerExpired() {
+      if (!powerDot || !powerLabel || powerExpired) return;
+      powerDot.classList.remove("active");
+      powerDot.classList.add("expired");
+      powerLabel.textContent = "Power expired";
+      powerExpired = true;
+    }
+
+    function nextDelay(character) {
+      if (character === "." || character === "!" || character === "?") return 360;
+      if (character === "," || character === ";" || character === ":") return 210;
+      if (character === " ") return 64;
+      return 52;
+    }
+
+    function revealNextCharacter() {
+      if (cursor >= textToReveal.length) return;
+      const character = textToReveal[cursor];
+      questionTextEl.textContent += character;
+      if (character === "*") setPowerExpired();
+      cursor += 1;
+      setTimeout(revealNextCharacter, nextDelay(character));
+    }
+
+    setPowerActive();
+    revealNextCharacter();
+  </script>
+</body>
+</html>
