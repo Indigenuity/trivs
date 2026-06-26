@@ -317,6 +317,26 @@ html, body {
   color: #f0f0f0;
 }
 
+.reveal-overlay {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  min-width: min(82vw, 680px);
+  max-width: min(90vw, 920px);
+  background: rgba(0, 0, 0, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 12px;
+  padding: 18px 22px;
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 700;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45);
+}
+
 @keyframes softPulse {
   0% { opacity: 0.5; transform: scale(0.92); }
   50% { opacity: 1; transform: scale(1.04); }
