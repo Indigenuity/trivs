@@ -61,8 +61,22 @@ function initRevealFlow() {
   });
 }
 
+function initIntroNavigation() {
+  const startBtn = document.querySelector(".intro-btn.primary");
+  if (!startBtn) return;
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    const target = event.target;
+    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
+    event.preventDefault();
+    startBtn.click();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initTopBar();
   initDelayedText();
   initRevealFlow();
+  initIntroNavigation();
 });
