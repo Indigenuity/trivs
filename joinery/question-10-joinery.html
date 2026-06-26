@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question 10 - Names of Joinery</title>
+  <link rel="stylesheet" href="../assets/trivs.css">
+  <style>
+    .quad-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+      background: #000;
+    }
+    .quad {
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+    .quad img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .quad-label {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.3);
+      font-size: 24px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 250ms ease;
+      pointer-events: none;
+    }
+    .quad-label.visible { opacity: 1; }
+    .joinery-center {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      min-width: min(86vw, 620px);
+      background: rgba(0, 0, 0, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: auto;
+      transition: opacity 250ms ease;
+    }
+    .joinery-center.visible { opacity: 1; }
+    .joinery-center h2 { margin: 0 0 10px; }
+    .joinery-center p { margin: 6px 0; font-size: 20px; font-weight: 700; }
+  </style>
+</head>
+<body data-power-seconds="30" data-points="100 points each">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="home-link" href="../index.html">Back to Index</a>
+      <span class="question-title">Question 10 - Names of Joinery?</span>
+    </div>
+    <div class="topbar-right">
+      <div class="power-wrap"><span class="power-dot" data-power-dot></span><span class="power-label" data-power-text>Power active</span></div>
+      <span class="points-pill" data-points-text>100 points each</span>
+    </div>
+  </header>
+  <main class="page-main quad-grid">
+    <section class="quad">
+      <img src="../assets/images/joinery/miter.jpg" alt="Joinery image 1">
+      <div class="quad-label">Splined/Miter Joint</div>
+    </section>
+    <section class="quad">
+      <img src="../assets/images/joinery/rabbet.jpg" alt="Joinery image 2">
+      <div class="quad-label">Rabbet</div>
+    </section>
+    <section class="quad">
+      <img src="../assets/images/joinery/dovetail.jpg" alt="Joinery image 3">
+      <div class="quad-label">Dovetail</div>
+    </section>
+    <section class="quad">
+      <img src="../assets/images/joinery/mortise-tenon.jpg" alt="Joinery image 4">
+      <div class="quad-label">Mortise and Tenon</div>
+    </section>
+  </main>
+  <section id="joineryCenter" class="joinery-center">
+    <h2>Joinery Names (Random Order)</h2>
+    <div id="joineryList"></div>
+    <button id="revealJoinery" class="action-btn primary" type="button">Reveal Answers</button>
+  </section>
+  <script src="../assets/trivs.js"></script>
+  <script>
+    const answers = ["Splined/Miter Joint", "Rabbet", "Dovetail", "Mortise and Tenon"];
+    const list = document.getElementById("joineryList");
+    const overlay = document.getElementById("joineryCenter");
+    const revealBtn = document.getElementById("revealJoinery");
+
+    function shuffle(values) {
+      const cloned = [...values];
+      for (let i = cloned.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned;
+    }
+
+    setTimeout(() => {
+      const randomOrder = shuffle(answers);
+      list.innerHTML = "";
+      randomOrder.forEach((name) => {
+        const p = document.createElement("p");
+        p.textContent = name;
+        list.appendChild(p);
+      });
+      overlay.classList.add("visible");
+    }, 30000);
+
+    revealBtn.addEventListener("click", () => {
+      document.querySelectorAll(".quad-label").forEach((el) => el.classList.add("visible"));
+      revealBtn.disabled = true;
+      revealBtn.textContent = "Answers Revealed";
+    });
+  </script>
+</body>
+</html>

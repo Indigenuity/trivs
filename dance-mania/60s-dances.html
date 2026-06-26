@@ -157,7 +157,7 @@
     <section class="tile">
       <iframe
         id="player-top-left"
-        src="https://www.youtube.com/embed/j62uWbUP7cY?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=245&enablejsapi=1"
+        src="https://www.youtube.com/embed/j62uWbUP7cY?autoplay=1&mute=0&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=245&enablejsapi=1"
         title="Dance video 1"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>
@@ -238,8 +238,13 @@
         const player = new YT.Player(playerId, {
           events: {
             onReady: () => {
-              // Keep all tiles muted by default.
-              player.mute();
+              if (playerId === "player-top-left") {
+                player.unMute();
+                player.setVolume(100);
+              } else {
+                // Keep non-primary tiles muted by default.
+                player.mute();
+              }
             }
           }
         });

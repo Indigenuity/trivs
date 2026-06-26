@@ -32,4 +32,37 @@ function initTopBar() {
   }, 1000);
 }
 
-document.addEventListener("DOMContentLoaded", initTopBar);
+function initDelayedText() {
+  const delayed = document.querySelector("[data-delayed-text]");
+  if (!delayed) return;
+  const delayMs = Number(delayed.dataset.delayMs || "10000");
+  setTimeout(() => {
+    delayed.classList.remove("hidden");
+  }, delayMs);
+}
+
+function initRevealFlow() {
+  const revealBtn = document.querySelector("[data-reveal-btn]");
+  if (!revealBtn) return;
+  revealBtn.addEventListener("click", () => {
+    const answerTarget = revealBtn.dataset.answerTarget;
+    const answerEl = answerTarget ? document.querySelector(answerTarget) : null;
+    if (answerEl) {
+      answerEl.classList.remove("hidden");
+    }
+
+    const nextLink = document.querySelector("[data-next-link]");
+    if (nextLink) {
+      nextLink.classList.add("visible");
+    }
+
+    revealBtn.disabled = true;
+    revealBtn.textContent = "Answer Revealed";
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTopBar();
+  initDelayedText();
+  initRevealFlow();
+});
