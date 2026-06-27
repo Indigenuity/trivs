@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question 9 - Quizbowl</title>
+  <link rel="stylesheet" href="../assets/trivs.css">
+</head>
+<body class="text-only" data-power-seconds="0" data-points="100 points">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="home-link" href="../index.html">Back to Index</a>
+      <span class="question-title">Question 9 - Quizbowl</span>
+    </div>
+    <div class="topbar-right">
+      <div class="power-wrap">
+        <span class="power-dot" data-power-dot aria-hidden="true"></span>
+        <span class="power-label" data-power-text>Power active</span>
+      </div>
+      <span class="points-pill" data-points-text>100 points</span>
+    </div>
+  </header>
+
+  <main class="question-shell">
+    <section class="question-card">
+      <p id="questionText" class="subprompt"></p>
+      <div id="revealPanel" class="reveal-panel hidden">
+        <button class="action-btn primary" data-reveal-btn data-answer-target="#answer">Reveal Answer</button>
+      </div>
+      <div id="answer" class="reveal-overlay hidden">Answer: A bandsaw (accept: band saw)</div>
+    </section>
+  </main>
+
+  <script src="../assets/trivs.js"></script>
+  <script>
+    const questionTextEl = document.getElementById("questionText");
+    const revealPanel = document.getElementById("revealPanel");
+    const powerDot = document.querySelector("[data-power-dot]");
+    const powerLabel = document.querySelector("[data-power-text]");
+
+    const textToReveal = `Fine-tuning this machine requires meticulously adjusting the "thrust bearings" and ensuring its large upper and lower wheels are perfectly coplanar so its primary component doesn't slip off the urethane tires. When shopping for a new one, woodworkers pay extremely close attention to its "throat capacity" - a highly scrutinized measurement of the distance between the cutting edge and the vertical support column. This machine is heavily utilized for "resawing," an operation that involves standing a thick, rigid piece of wood up and deeply slicing it right down the middle. (*) Unlike a table saw's rigid circular disc, this tool cuts using a continuous, flexible loop of toothed metal that travels in a single downward direction. For 100 points, name this tall, floor-standing shop machine that excels at cutting tight curves and irregular shapes.`;
+
+    let cursor = 0;
+    let powerExpired = false;
+
+    function setPowerActive() {
+      if (!powerDot || !powerLabel) return;
+      powerDot.classList.remove("expired");
+      powerDot.classList.add("active");
+      powerLabel.textContent = "Power active";
+    }
+
+    function setPowerExpired() {
+      if (!powerDot || !powerLabel || powerExpired) return;
+      powerDot.classList.remove("active");
+      powerDot.classList.add("expired");
+      powerLabel.textContent = "Power expired";
+      powerExpired = true;
+    }
+
+    function nextDelay(character) {
+      if (character === "." || character === "!" || character === "?") return 360;
+      if (character === "," || character === ";" || character === ":") return 210;
+      if (character === " ") return 64;
+      return 52;
+    }
+
+    function revealNextCharacter() {
+      if (cursor >= textToReveal.length) {
+        if (revealPanel) revealPanel.classList.remove("hidden");
+        return;
+      }
+      const character = textToReveal[cursor];
+      questionTextEl.textContent += character;
+      if (character === "*") setPowerExpired();
+      cursor += 1;
+      setTimeout(revealNextCharacter, nextDelay(character));
+    }
+
+    setPowerActive();
+    revealNextCharacter();
+  </script>
+</body>
+</html>

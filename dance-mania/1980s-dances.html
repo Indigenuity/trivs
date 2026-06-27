@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question 10 - 1980s Dances</title>
+  <link rel="stylesheet" href="../assets/trivs.css">
+  <style>
+    :root {
+      --overlay-height: 56px;
+      --overlay-left-width: 44%;
+      --overlay-left-height: 40px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .video-wall {
+      width: 100vw;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+      background: #000;
+    }
+
+    .tile {
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .tile iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .title-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--overlay-height);
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.96) 0%,
+          rgba(0, 0, 0, 0.86) 72%,
+          rgba(0, 0, 0, 0) 100%
+        );
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .left-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--overlay-left-width);
+      height: var(--overlay-left-height);
+      background: rgba(0, 0, 0, 0.97);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .move-label {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      z-index: 6;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 300ms ease;
+      white-space: nowrap;
+    }
+
+    .move-label.visible {
+      opacity: 1;
+    }
+
+    .title-center-overlay {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      padding: 16px 20px;
+      min-width: min(82vw, 620px);
+      background: rgba(0, 0, 0, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      text-align: center;
+      pointer-events: auto;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .title-center-overlay.visible {
+      opacity: 1;
+    }
+
+    .title-center-overlay h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .title-center-overlay p {
+      margin: 6px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .reveal-btn {
+      margin-top: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: #f3f3f3;
+      color: #111;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body data-power-seconds="30" data-points="100 points each">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="home-link" href="../index.html">Back to Index</a>
+      <span class="question-title">Question 10 - 1980s Dances</span>
+    </div>
+    <div class="topbar-right">
+      <div class="power-wrap">
+        <span class="power-dot active" data-power-dot aria-hidden="true"></span>
+        <span class="power-label" data-power-text>Power active</span>
+      </div>
+      <span class="points-pill" data-points-text>100 points each</span>
+    </div>
+  </header>
+
+  <main class="page-main video-wall">
+    <section class="tile">
+      <iframe
+        id="player-top-left"
+        src="https://www.youtube.com/embed/7utORwPvzoU?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=12&enablejsapi=1"
+        title="1980s dance video 1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <div class="title-mask" aria-hidden="true"></div>
+      <div class="left-mask" aria-hidden="true"></div>
+      <div class="move-label">Cotton-Eyed Joe</div>
+    </section>
+
+    <section class="tile">
+      <iframe
+        id="player-top-right"
+        src="https://www.youtube.com/embed/4V90AmXnguw?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=58&enablejsapi=1"
+        title="1980s dance video 2"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <div class="title-mask" aria-hidden="true"></div>
+      <div class="left-mask" aria-hidden="true"></div>
+      <div class="move-label">Thriller</div>
+    </section>
+
+    <section class="tile">
+      <iframe
+        id="player-bottom-left"
+        src="https://www.youtube.com/embed/b6pomaq30Gg?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=7&enablejsapi=1"
+        title="1980s dance video 3"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <div class="title-mask" aria-hidden="true"></div>
+      <div class="left-mask" aria-hidden="true"></div>
+      <div class="move-label">Moonwalk</div>
+    </section>
+
+    <section class="tile">
+      <iframe
+        id="player-bottom-right"
+        src="https://www.youtube.com/embed/N4STZCPuhf0?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&start=92&enablejsapi=1"
+        title="1980s dance video 4"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <div class="title-mask" aria-hidden="true"></div>
+      <div class="left-mask" aria-hidden="true"></div>
+      <div class="move-label">Cabbage Patch</div>
+    </section>
+  </main>
+
+  <section id="titleCenterOverlay" class="title-center-overlay" aria-live="polite">
+    <h2>Dance Titles (Random Order)</h2>
+    <div id="titleCenterList"></div>
+    <button id="revealBtn" class="reveal-btn" type="button">Reveal Answer</button>
+  </section>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="../assets/trivs.js"></script>
+  <script>
+    const allPlayerIds = [
+      "player-top-left",
+      "player-top-right",
+      "player-bottom-left",
+      "player-bottom-right"
+    ];
+
+    const loopConfig = [
+      { id: "player-top-left", start: 12, length: 30 },
+      { id: "player-top-right", start: 58, length: 30 },
+      { id: "player-bottom-left", start: 7, length: 30 },
+      { id: "player-bottom-right", start: 92, length: 30 }
+    ];
+
+    const players = new Map();
+    const titleCenterOverlay = document.getElementById("titleCenterOverlay");
+    const titleCenterList = document.getElementById("titleCenterList");
+    const revealBtn = document.getElementById("revealBtn");
+    const danceNames = ["Cotton-Eyed Joe", "Thriller", "Moonwalk", "Cabbage Patch"];
+
+    window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
+      allPlayerIds.forEach((playerId) => {
+        const player = new YT.Player(playerId, {
+          events: {
+            onReady: () => {
+              player.mute();
+            }
+          }
+        });
+        players.set(playerId, player);
+      });
+    };
+
+    function shuffle(list) {
+      const cloned = [...list];
+      for (let i = cloned.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned;
+    }
+
+    function showRandomizedTitles() {
+      const randomized = shuffle(danceNames);
+      titleCenterList.innerHTML = "";
+      randomized.forEach((titleText) => {
+        const p = document.createElement("p");
+        p.textContent = titleText;
+        titleCenterList.appendChild(p);
+      });
+      titleCenterOverlay.classList.add("visible");
+    }
+
+    function revealAnswers() {
+      document.querySelectorAll(".move-label").forEach((label) => label.classList.add("visible"));
+      revealBtn.disabled = true;
+      revealBtn.textContent = "Answers Revealed";
+    }
+
+    setInterval(() => {
+      loopConfig.forEach((cfg) => {
+        const player = players.get(cfg.id);
+        if (!player || typeof player.getCurrentTime !== "function") return;
+        const state = player.getPlayerState();
+        if (state !== YT.PlayerState.PLAYING) return;
+        const current = player.getCurrentTime();
+        if (current >= cfg.start + cfg.length) {
+          player.seekTo(cfg.start, true);
+        }
+      });
+    }, 350);
+
+    setTimeout(() => {
+      showRandomizedTitles();
+    }, 30000);
+
+    revealBtn.addEventListener("click", revealAnswers);
+  </script>
+</body>
+</html>
