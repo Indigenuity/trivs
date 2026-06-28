@@ -178,10 +178,19 @@ html, body {
 }
 
 .intro-style {
-  font-size: clamp(28px, 3.1vw, 48px);
-  color: #a7f0d0;
   margin: 0;
-  font-weight: 800;
+  padding: 0.1em 0.35em;
+  border-radius: 14px;
+  font-size: clamp(36px, 4.2vw, 72px);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #7cf5ff 0%, #ffd166 50%, #ff7ad9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 22px rgba(124, 245, 255, 0.2);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55));
 }
 
 .intro-subtext {

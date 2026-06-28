@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Question 2 - Quizbowl</title>
+  <title>Question 2 - Claude Special</title>
   <link rel="stylesheet" href="../assets/trivs.css">
 </head>
-<body class="text-only" data-power-seconds="0" data-points="100 points">
+<body class="text-only" data-power-seconds="30" data-points="100 points">
   <header class="topbar">
     <div class="topbar-left">
       <a class="home-link" href="../index.html">Back to Index</a>
-      <span class="question-title">Question 2 - Quizbowl</span>
+      <span class="question-title">Question 2 - Claude Special</span>
     </div>
     <div class="topbar-right">
       <div class="power-wrap">
@@ -23,64 +23,22 @@
 
   <main class="question-shell">
     <section class="question-card">
-      <p id="questionText" class="subprompt"></p>
-      <div id="revealPanel" class="reveal-panel hidden">
+      <h1 class="prompt">Claude Special</h1>
+      <p class="subprompt"><strong>A Glossy Finish</strong></p>
+      <p class="subprompt">
+        When finishing wood, if you want a glossy, mirror-like shine, you have to polish it using friction.
+        In traditional woodworking, this process of aggressively polishing a finish to a high gloss is known
+        by what highly suggestive phrase?
+      </p>
+      <div class="reveal-panel">
         <button class="action-btn primary" data-reveal-btn data-answer-target="#answer">Reveal Answer</button>
       </div>
       <div id="answer" class="reveal-overlay hidden">
-        Answer: Clamps (accept specific types like bar clamps, pipe clamps, C-clamps, F-clamps, etc.)
+        Answer: Rubbing it out (accept "rubbing out the finish")
       </div>
     </section>
   </main>
 
   <script src="../assets/trivs.js"></script>
-  <script>
-    const questionTextEl = document.getElementById("questionText");
-    const revealPanel = document.getElementById("revealPanel");
-    const powerDot = document.querySelector("[data-power-dot]");
-    const powerLabel = document.querySelector("[data-power-text]");
-
-    const textToReveal = `A highly versatile, traditional wooden "hand screw" variety of this tool utilizes dual threaded spindles to allow its jaws to be angled independently of one another. The premium "parallel" version of this tool, famously manufactured by the red-and-black brand Bessey (BESS-ee), features rectangular jaws encased in resin that remain perfectly at 90 degrees under extreme tension. There is a universal, running joke in the woodworking community that no matter how much money you spend or how much wall space you dedicate to them, you will simply never have enough of these objects. They are employed to apply massive amounts of squeezing pressure (*) to tightly lock two pieces of wood together while PVA glue dries. For 100 points, name these ubiquitous shop devices that come in C, F, pipe, and bar varieties.`;
-
-    let cursor = 0;
-    let powerExpired = false;
-
-    function setPowerActive() {
-      if (!powerDot || !powerLabel) return;
-      powerDot.classList.remove("expired");
-      powerDot.classList.add("active");
-      powerLabel.textContent = "Power active";
-    }
-
-    function setPowerExpired() {
-      if (!powerDot || !powerLabel || powerExpired) return;
-      powerDot.classList.remove("active");
-      powerDot.classList.add("expired");
-      powerLabel.textContent = "Power expired";
-      powerExpired = true;
-    }
-
-    function nextDelay(character) {
-      if (character === "." || character === "!" || character === "?") return 360;
-      if (character === "," || character === ";" || character === ":") return 210;
-      if (character === " ") return 64;
-      return 52;
-    }
-
-    function revealNextCharacter() {
-      if (cursor >= textToReveal.length) {
-        if (revealPanel) revealPanel.classList.remove("hidden");
-        return;
-      }
-      const character = textToReveal[cursor];
-      questionTextEl.textContent += character;
-      if (character === "*") setPowerExpired();
-      cursor += 1;
-      setTimeout(revealNextCharacter, nextDelay(character));
-    }
-
-    setPowerActive();
-    revealNextCharacter();
-  </script>
 </body>
 </html>
